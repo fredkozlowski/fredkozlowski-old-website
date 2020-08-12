@@ -125,7 +125,7 @@ If you remember that the Sobel operator calculates the x and y gradients at each
 
 This was one tricky part for me. I had gotten to the part where I had to calculate the Harris score, which is determined by the equation below. <br><br>
 			
-			<img src="img/harrisscore.jpg" alt="Harris Score" class="center" width=50% height=50%><br clear="all" /><br>
+			<img src="img/harrisscore.jpg" alt="Harris Score" class="center" width=25% height=25%><br clear="all" /><br>
 
 I had a problem though. Wouldn't the determinant of M always be 0? What needs to happen before I do the Harris score calculation is I need to apply a <a href = "https://stackoverflow.com/questions/15075239/the-harris-stephens-corner-detection-algorithm-determinant-always-0-zero">window function to M.</a><br><br>
 
