@@ -103,7 +103,7 @@ These are the general steps of the Harris Corner Detector <br><br>
 
 I wanted to learn this from a sort of first principles approach, so I started with coding a Sobel operator. This is a method of finding the x and y gradients at every pixel of an image. Functionally, this detects edges in an image, which is useful because corners are the intersection of edges. How it works is you take a specific kernel (matrix) and multiply element wise with a 3x3 patch of the image. <br><br>
 			
-			<img src="img/sobel.gif" alt="Sobel Operator" class="center" width=50% height=50%><br clear="all" /><br>
+			<img src="img/sobel.png" alt="Sobel Operator" class="center" width=50% height=50%><br clear="all" /><br>
 			Sobel operator kernel<br><br>
 			
 			My implementation iterates over each pixel in the image. I hardcoded the kernel, as opposed to creating a Mat, simply because it seemed simpler.  I created two temp Mats of int type to store the output. This was necessary because the output of multiplication like this would've overflowed uchar. At the end I cast and scale the temporary Mat data to be back to uchar for consistency. You can see the results of running on a chessboard image below.  <br><br>
@@ -112,10 +112,10 @@ I wanted to learn this from a sort of first principles approach, so I started wi
 			The original image<br><br>
 			
 			<img src="img/gx.jpg" alt="X Gradient" class="center" width=50% height=50%><br clear="all" /><br>
-			X Gradient<br>
+			X Gradient<br><br>
 			
 			<img src="img/gy.jpg" alt="Y Gradient" class="center" width=50% height=50%><br clear="all" /><br>
-			Y Gradient<br>
+			Y Gradient<br><br>
 
 I then needed to calculate the gradient covariance matrix, which is this <br><br>
 			
@@ -136,11 +136,11 @@ For this I chose a Gaussian blur with radius of 2.  Gaussian blur is simply appl
 			I tried to do something a little strange here. Rather than hardcoding the values of the Gaussian kernel, I created a loop to fill the values in for me.  If I had to do this next time, I would probably hardcode the values in a Mat, then use the mul function. I don't think I would actually precalculate the values from the Gaussian function, since it's not too difficult to just hardcode. <br><br> 
 			
 			<img src="img/blurredgxx.jpg" alt="Blurred Gradient XX" class="center" width=50% height=50%><br clear="all" /><br>
-			Blurred XX Gradient<br>
+			Blurred XX Gradient<br><br>
 			<img src="img/blurredgxy.jpg" alt="Blurred Gradient XY" class="center" width=50% height=50%><br clear="all" /><br>
-			Blurred XY Gradient<br>
+			Blurred XY Gradient<br><br>
 			<img src="img/blurredgyy.jpg" alt="Blurred Gradient YY" class="center" width=50% height=50%><br clear="all" /><br>
-			Blurred YY Gradient<br>
+			Blurred YY Gradient<br><br>
 
 Now we can calculate Harris score. I use k constant of 0.04 since that's what was <a href = "https://courses.cs.washington.edu/courses/cse576/06sp/notes/HarrisDetector.pdf">recommended here</a>. I then create a float Mat called window and fill it with the elements of the blurred gradient covariance matrix. Again, its type float to avoid overflow when calculating trace and determinant. I then threshold based on an empirically determined value (I chose it based on when I was getting a reasonable number of corners). It’s important to note that both very negative and very positive values are what you're looking for. I then put the absolute value of the score into a Mat. I was considering using a std::vector<cv::Point>, but I wanted the score, as well as the coordinates.  <br><br>
 
