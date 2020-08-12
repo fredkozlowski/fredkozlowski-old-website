@@ -131,7 +131,8 @@ I had a problem though. Wouldn't the determinant of M always be 0? What needs to
 
 For this I chose a Gaussian blur with radius of 2.  Gaussian blur is simply applying a 3x3 kernel to a 3x3 image patch again, similar to the Sobel operator. At the end you multiply by the inverse of the sum of the matrix elements, to compute an average.  <br><br>
 			
-			<img src="img/gaussian.png" alt="Gaussian Kernel" class="center" width=50% height=50%><br clear="all" /><br>
+			<img src="img/gaussian.png" alt="Gaussian Kernel" class="center" width=30% height=30%><br clear="all" /><br>
+			Gaussian blur kernel<br><br>
 			
 			I tried to do something a little strange here. Rather than hardcoding the values of the Gaussian kernel, I created a loop to fill the values in for me.  If I had to do this next time, I would probably hardcode the values in a Mat, then use the mul function. I don't think I would actually precalculate the values from the Gaussian function, since it's not too difficult to just hardcode. <br><br> 
 			
